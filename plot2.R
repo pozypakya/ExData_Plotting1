@@ -25,5 +25,5 @@ power.consumption<-power.consumption[,c(10,3:9)]
 write.table(power.consumption,file=paste(curdir,'/power_consumption.txt',sep=""),sep='|',row.names=FALSE)
 png(filename=paste(curdir,'/plot2.png',sep=""),width=480,height=480,units='px')
 plot(power.consumption$DateTime,power.consumption$GlobalActivePower,ylab='Global Active Power (kilowatts)', xlab='', type='l')
+
 graphics.off() 
-plot(power.consumption$DateTime,power.consumption$GlobalActivePower,ylab='Global Active Power (kilowatts)', xlab='', type='l')

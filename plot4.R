@@ -21,9 +21,29 @@ colnames(power.consumption)<-cols
 power.consumption$DateTime<-dmy(power.consumption$Date)+hms(power.consumption$Time)
 power.consumption<-power.consumption[,c(10,3:9)]
   
-# write  data set to the directory
+# write to the directory
 write.table(power.consumption,file=paste(curdir,'/power_consumption.txt',sep=""),sep='|',row.names=FALSE)
-png(filename=paste(curdir,'/plot1.png',sep=""),width=480,height=480,units='px')
-hist(power.consumption$GlobalActivePower,main='Global Active Power',xlab='Global Active Power (kilowatts)',col='red')
+
+# open png device
+png(paste(curdir,'/plot4.png',sep=""),width=480,height=480,units='px')
+
+# make 4 plots
+par(mfrow=c(2,2))
+
+#top left (1,1)
+plot(power.consumption$DateTime,power.consumption$GlobalActivePower,ylab='Global Active Power',xlab='',type='l')
+
+#top right (1,2)
+plot(power.consumption$DateTime,power.consumption$Voltage,xlab='datetime',ylab='Voltage',type='l')
+
+#bottom left (2,1)
+lncol<-c('black','red','blue')
+lbls<-c('Sub_metering_1','Sub_metering_2','Sub_metering_3')
+plot(power.consumption$DateTime,power.consumption$SubMetering1,type='l',col=lncol[1],xlab='',ylab='Energy sub metering')
+lines(power.consumption$DateTime,power.consumption$SubMetering2,col=lncol[2])
+lines(power.consumption$DateTime,power.consumption$SubMetering3,col=lncol[3])
+
+#bottom right (2,2)
+plot(power.consumption$DateTime,power.consumption$GlobalReactivePower,xlab='datetime',ylab='Global_reactive_power',type='l')
 
 graphics.off() 
